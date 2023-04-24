@@ -1,0 +1,28 @@
+.groupBox {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  
+  margin-bottom: 1rem;
+}
+
+.leftHeader:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.deleteIcon {
+  color: #f03e3f;
+  font-size: 2rem;
+
+  border-radius: 20px;
+  padding: 1px;
+}
+
+.deleteIcon:hover {
+  background-color: #ffe3e3;
+}
