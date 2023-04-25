@@ -56,6 +56,29 @@ def get_groups():
 
   return rows, 200
 
+@app.delete("/groups/<group_name>")
+def group_name(group_name):
+  if not group_name:
+    return "Group name parameter must be present", 422
+  
+  sql_delete_routes = """
+    DELETE FROM routes WHERE group_name=?
+  """
+
+  sql_delete_group = """
+    DELETE FROM groups WHERE name=?
+  """
+
+  conn = db.get_db_connection()
+  cur = conn.cursor()
+  cur.execute(sql_delete_routes, (group_name,))
+  cur.execute(sql_delete_group, (group_name,))
+
+  conn.commit()
+  conn.close()
+
+  return "Success.", 200
+
 """
 Handlers relating to the management of routes.
 """
@@ -109,8 +132,6 @@ def get_routes(group_name):
   cur.execute(sql_get_routes, (group_name,))
 
   rows = cur.fetchall()
-  conn.close()
-  
   conn.close()
 
   return rows, 200

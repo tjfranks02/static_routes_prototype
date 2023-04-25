@@ -20,3 +20,6 @@ def get_db_connection():
     print("Failed to create DB connection.")
   return conn
 
+def get_cursor_object():
+  return get_db_connection().cursor()
+
