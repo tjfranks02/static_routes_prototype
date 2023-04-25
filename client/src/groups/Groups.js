@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Header from "../Header";
 import Group from "./Group";
@@ -8,26 +8,36 @@ import { Box } from "@mui/material";
 
 import styles from "../styles/groups.css";
 
-const Groups = () => {
+import { getGroups } from "../api/groups";
 
-  const renderGroups = (groupNames) => {
-    const groups = groupNames.map((groupName) => {
+const Groups = () => {
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    const fetchGroups = async () => {
+      const groups = await getGroups();
+      setGroups(groups);
+    };
+    fetchGroups();
+  }, []);
+
+  const renderGroups = () => {
+    return groups.map((group) => {
       return (
         <Group 
-          name={groupName}
-          description="This is a test description for a fake group"
-          key={groupName}
+          name={group.name}
+          description={group.description}
+          key={group.name}
         />
       );
     });
-    return groups;
   };
 
   return (
     <div>
       <Layout>
         <Box className="groupsBox">
-          {renderGroups(["dc1_t2_tc_route", "dc2_t3_mc_route"])}
+          {renderGroups()}
         </Box>
       </Layout>
     </div>

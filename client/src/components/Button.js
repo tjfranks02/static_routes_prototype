@@ -2,9 +2,10 @@ import React from "react";
 
 import { Button } from "@mui/material";
 
-const ButtonWrapper = ({ sx, onClick, children }) => {
+const ButtonWrapper = ({ className, sx, onClick, children }) => {
   return (
-    <Button 
+    <Button
+      className={className}
       sx={{
         backgroundColor: "#37b24d",
         color: "white",

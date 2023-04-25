@@ -6,12 +6,6 @@ import {
   RouterProvider
 } from "react-router-dom";
 
-import {
-  Box
-} from "@mui/material";
-
-import App from "./App";
-import Header from "./Header";
 import Groups from "./groups/Groups";
 import RoutesList from "./routes/RoutesList";
 

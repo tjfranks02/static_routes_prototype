@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
-
 import { Box, Typography, Divider } from "@mui/material";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -36,7 +34,7 @@ const Route = ({ route, name, description }) => {
           <DeleteOutlineIcon className="deleteIcon" />
         </Box>
       </Box>
-      <Divider marginBottom={2} />
+      <Divider />
       <Typography marginTop={2}>
         {description}
       </Typography>

@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { getRoutesInGroup } from "../api/routes";
+import { useParams } from "react-router-dom";
 
 import Route from "./Route";
 import Layout from "../Layout";
@@ -12,23 +15,42 @@ import "../styles/routes.css";
 
 const RoutesList = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [routes, setRoutes] = useState([]);
 
-  const renderRoutes = (routes) => {
+  const params = useParams();
+
+  useEffect(() => {
+    const fetchRoutes = async () => {
+      const routes = await getRoutesInGroup(params.groupName);
+      setRoutes(routes);
+    };
+    fetchRoutes();
+  }, []);
+
+  const renderRoutes = () => {
     return routes.map((route) => {
       return (
         <Route
-          key={route}
-          route={route}
-          name="Fake name for route"
-          description="This is a fake description for a fake route"
+          key={route.route}
+          route={route.route}
+          name={route.name}
+          description={route.description}
         />
       );
     })
   };
 
+  const onRouteCreate = (route, name, description) => {
+    console.log(route, name, description);
+  };
+
   return (
     <Layout>
-      <CreateRouteModal open={modalOpen} />
+      <CreateRouteModal 
+        open={modalOpen} 
+        onClose={() => setModalOpen(false)}
+        onSubmit={onRouteCreate}
+      />
       <Box className="routesBox">
         <Button 
           sx={{ 

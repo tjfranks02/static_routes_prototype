@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
       <Box className="layoutBox">
         <Breadcrumbs 
           separator="/" 
-          sx={{ textDecoration: "none", marginBottom: 1.5 }}
+          sx={{ textDecoration: "none", marginBottom: 0 }}
         >
           <Link 
             className="breadcrumbLink"

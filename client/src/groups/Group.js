@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 import { Box, Typography, Divider } from "@mui/material";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
 
-import styles from "../styles/group.css";
+import "../styles/group.css";
 
 const Group = ({ name, description }) => {
   return (
@@ -17,7 +16,7 @@ const Group = ({ name, description }) => {
           <Link to={`${name}/routes`}>
             <Typography 
               variant="h5" 
-              marginBottom={1.5}
+              marginBottom={2}
             >
               {name}
             </Typography>
@@ -27,7 +26,7 @@ const Group = ({ name, description }) => {
           <DeleteOutlineIcon className="deleteIcon" />
         </Box>
       </Box>
-      <Divider marginBottom={2} />
+      <Divider />
       <Typography marginTop={2}>
         {description}
       </Typography>
