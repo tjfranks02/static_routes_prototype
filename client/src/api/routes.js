@@ -28,12 +28,15 @@ export const createNewRoute = async (route) => {
 };
 
 export const deleteRoute = async(route, group_name) => {
-  console.log("HELLO!");
+  route = encodeURIComponent(route);
+  let req_url = `${BASE_URL}/routes/${group_name}/${route}`;
+
   try {
     const res = await axios({
       method: "DELETE",
-      url: `${BASE_URL}/routes/${group_name}/${route}`,
+      url: req_url
     });
+    return res.data;
   } catch(e) {
     console.log(e);
     return null;

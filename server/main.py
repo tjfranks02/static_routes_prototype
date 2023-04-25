@@ -1,10 +1,12 @@
 from flask import Flask, request
-from flask_cors import CORS
+from flask_cors import CORS, logging
+
+logging.getLogger('flask_cors').level = logging.DEBUG
 
 import db
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r'/*': { "origins": ["http://localhost:3000"]} })
 
 """
 Handlers related to the management of groups.
@@ -113,7 +115,7 @@ def get_routes(group_name):
 
   return rows, 200
 
-@app.delete("/routes/<group_name>/<route>")
+@app.delete("/routes/<group_name>/<path:route>")
 def delete_route(group_name, route):
   if not group_name or not route:
     return "Both group_name and route fields must be present.", 422
@@ -130,3 +132,8 @@ def delete_route(group_name, route):
   conn.close()
 
   return "Success.", 200
+
+@app.after_request
+def add_headers(response):
+
+    return response
