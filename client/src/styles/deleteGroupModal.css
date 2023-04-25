@@ -1,0 +1,8 @@
+.contentBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.deleteButton {
+  align-self: flex-end;
+}

@@ -13,3 +13,31 @@ export const getGroups = async () => {
     return null;
   }
 };
+
+export const createGroup = async (name, description) => {
+  try {
+    const res = await axios({
+      method: "POST",
+      url: BASE_URL + "/groups",
+      data: {
+        name,
+        description
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
+
+export const deleteGroup = async (name) => {
+  try {
+    const res = await axios({
+      method: "DELETE",
+      url: BASE_URL + `/groups/${name}`
+    });
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};  

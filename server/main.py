@@ -64,17 +64,19 @@ def group_name(group_name):
   sql_delete_routes = """
     DELETE FROM routes WHERE group_name=?
   """
-
   sql_delete_group = """
     DELETE FROM groups WHERE name=?
   """
 
   conn = db.get_db_connection()
   cur = conn.cursor()
-  cur.execute(sql_delete_routes, (group_name,))
-  cur.execute(sql_delete_group, (group_name,))
 
+  # cur.execute(sql_delete_routes, (group_name,))
+  # conn.commit()
+
+  cur.execute(sql_delete_group, (group_name,))
   conn.commit()
+
   conn.close()
 
   return "Success.", 200
@@ -153,8 +155,3 @@ def delete_route(group_name, route):
   conn.close()
 
   return "Success.", 200
-
-@app.after_request
-def add_headers(response):
-
-    return response

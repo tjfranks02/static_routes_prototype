@@ -8,7 +8,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import "../styles/group.css";
 
-const Group = ({ name, description }) => {
+const Group = ({ name, description, onDeleteClick }) => {
   return (
     <Box className="groupBox">
       <Box className="header">
@@ -23,7 +23,7 @@ const Group = ({ name, description }) => {
           </Link>
         </Box>
         <Box className="rightHeader">
-          <DeleteOutlineIcon className="deleteIcon" />
+          <DeleteOutlineIcon className="deleteIcon" onClick={onDeleteClick} />
         </Box>
       </Box>
       <Divider />
