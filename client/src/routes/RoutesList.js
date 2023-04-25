@@ -42,7 +42,6 @@ const RoutesList = () => {
   };
 
   const onRouteCreate = async (route, name, description) => {
-    console.log(route, name, description);
     await createNewRoute({
       route,
       name,
