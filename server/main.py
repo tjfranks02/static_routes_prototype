@@ -6,7 +6,9 @@ import db
 app = Flask(__name__)
 CORS(app)
 
-
+"""
+Handlers related to the management of groups.
+"""
 @app.post("/groups")
 def create_new_group():
   """
@@ -52,6 +54,9 @@ def get_groups():
 
   return rows, 200
 
+"""
+Handlers relating to the management of routes.
+"""
 @app.post("/routes/<group_name>")
 def add_route_to_group(group_name):
   """
@@ -107,3 +112,21 @@ def get_routes(group_name):
   conn.close()
 
   return rows, 200
+
+@app.delete("/routes/<group_name>/<route>")
+def delete_route(group_name, route):
+  if not group_name or not route:
+    return "Both group_name and route fields must be present.", 422
+  
+  sql_delete_route = """
+    DELETE FROM routes WHERE route=? AND group_name=?
+  """
+  route_info = (route, group_name)
+  
+  conn = db.get_db_connection()
+  cur = conn.cursor()
+  cur.execute(sql_delete_route, route_info)
+  conn.commit()
+  conn.close()
+
+  return "Success.", 200

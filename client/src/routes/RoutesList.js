@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { getRoutesInGroup, createNewRoute } from "../api/routes";
+import { getRoutesInGroup, createNewRoute, deleteRoute } from "../api/routes";
 import { useParams } from "react-router-dom";
 
 import Route from "./Route";
@@ -8,14 +8,19 @@ import Layout from "../Layout";
 
 import Button from "../components/Button";
 import CreateRouteModal from "./CreateRouteModal";
+import DeleteRouteModal from "./DeleteRouteModal";
 
 import { Box } from "@mui/material";
 
 import "../styles/routes.css";
 
 const RoutesList = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [routes, setRoutes] = useState([]);
+
+  //Route that is the focus of a delete action
+  const [activeRoute, setActiveRoute] = useState(null);
 
   const params = useParams();
 
@@ -36,9 +41,15 @@ const RoutesList = () => {
           route={route.route}
           name={route.name}
           description={route.description}
+          onDeleteClick={onDeleteClick}
         />
       );
     })
+  };
+
+  const onDeleteClick = async (route) => {
+    setDeleteModalOpen(true);
+    setActiveRoute(route);
   };
 
   const onRouteCreate = async (route, name, description) => {
@@ -49,15 +60,28 @@ const RoutesList = () => {
       group_name: params.groupName
     });
     await fetchRoutes();
-    setModalOpen(false);
+    setCreateModalOpen(false);
+  };
+
+  const onRouteDelete = async () => {
+    await deleteRoute(activeRoute, params.groupName);
+    await fetchRoutes();
+    setActiveRoute(null);
+    setDeleteModalOpen(false);
   };
 
   return (
     <Layout>
       <CreateRouteModal 
-        open={modalOpen} 
-        onClose={() => setModalOpen(false)}
+        open={createModalOpen} 
+        onClose={() => setCreateModalOpen(false)}
         onSubmit={onRouteCreate}
+      />
+      <DeleteRouteModal
+        open={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        onDelete={onRouteDelete}
+        route={activeRoute}
       />
       <Box className="routesBox">
         <Button 
@@ -67,11 +91,11 @@ const RoutesList = () => {
             top: -47,
             right: 0
           }}
-          onClick={() => setModalOpen(true)}
+          onClick={() => setCreateModalOpen(true)}
         >
           + New Route
         </Button>
-        {renderRoutes(["1.1.1.1 via 12.13.14.15 dev ens192"])}
+        {renderRoutes()}
       </Box>
     </Layout>
   );

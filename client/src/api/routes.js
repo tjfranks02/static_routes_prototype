@@ -26,3 +26,16 @@ export const createNewRoute = async (route) => {
     return null;
   }
 };
+
+export const deleteRoute = async(route, group_name) => {
+  console.log("HELLO!");
+  try {
+    const res = await axios({
+      method: "DELETE",
+      url: `${BASE_URL}/routes/${group_name}/${route}`,
+    });
+  } catch(e) {
+    console.log(e);
+    return null;
+  }
+}

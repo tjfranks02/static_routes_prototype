@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import styles from "../styles/route.css";
 
-const Route = ({ route, name, description }) => {
+const Route = ({ route, name, description, onDeleteClick }) => {
   return (
     <Box className="routeBox">
       <Box className="header">
@@ -31,7 +31,10 @@ const Route = ({ route, name, description }) => {
         </Box>
         <Box className="rightHeader">
           <EditIcon className="editIcon" />
-          <DeleteOutlineIcon className="deleteIcon" />
+          <DeleteOutlineIcon 
+            className="deleteIcon"
+            onClick={() => onDeleteClick(route)}
+          />
         </Box>
       </Box>
       <Divider />
