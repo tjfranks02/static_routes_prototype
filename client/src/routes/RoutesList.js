@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { getRoutesInGroup } from "../api/routes";
+import { getRoutesInGroup, createNewRoute } from "../api/routes";
 import { useParams } from "react-router-dom";
 
 import Route from "./Route";
@@ -19,11 +19,12 @@ const RoutesList = () => {
 
   const params = useParams();
 
+  const fetchRoutes = async () => {
+    const routes = await getRoutesInGroup(params.groupName);
+    setRoutes(routes);
+  };
+
   useEffect(() => {
-    const fetchRoutes = async () => {
-      const routes = await getRoutesInGroup(params.groupName);
-      setRoutes(routes);
-    };
     fetchRoutes();
   }, []);
 
@@ -40,8 +41,16 @@ const RoutesList = () => {
     })
   };
 
-  const onRouteCreate = (route, name, description) => {
+  const onRouteCreate = async (route, name, description) => {
     console.log(route, name, description);
+    await createNewRoute({
+      route,
+      name,
+      description,
+      group_name: params.groupName
+    });
+    await fetchRoutes();
+    setModalOpen(false);
   };
 
   return (

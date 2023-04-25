@@ -13,3 +13,16 @@ export const getRoutesInGroup = async (group_name) => {
     return null;
   }
 };
+
+export const createNewRoute = async (route) => {
+  try {
+    const res = await axios({
+      method: "POST",
+      url: `${BASE_URL}/routes/${route.group_name}`,
+      data: {...route}
+    });
+    return res.data;
+  } catch (e) {
+    return null;
+  }
+};
