@@ -7,7 +7,7 @@ import styles from "./styles/header.css";
 const Header = () => {
   return (
     <div className="headerBox">
-      <Typography variant="h4">NaaS static routes library</Typography>
+      <Typography variant="h4">Static routes library</Typography>
     </div>
   );
 };
