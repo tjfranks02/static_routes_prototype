@@ -1,2 +1,2 @@
-# static_routes_prototype
-Potential web interface for managing collection of static routes
+# Static routes prototype
+Simple app for managing static routes files in /etc/sysconfig/network-scripts/route-interface.
